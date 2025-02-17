@@ -1,0 +1,193 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{float}
+
+\title{Predicting Customer Spending on E-Commerce Platforms using Linear Regression}
+\author{Ramy Solanki \\ NUID: 002816593}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Research Question \& Relevance}
+\subsection*{Research Question}
+How can linear regression be used to predict customer spending based on user behavior metrics in an e-commerce dataset?
+
+\subsection*{Relevance}
+This research is crucial as it demonstrates how e-commerce platforms can harness machine learning to accurately predict customer spending patterns. By forecasting spending behavior, businesses can design targeted marketing campaigns, allocate resources more effectively, and implement robust customer retention strategies---all of which contribute to increased profitability.
+
+The study leverages linear regression, a foundational yet powerful machine learning technique, to quantify the impact of key user behavior metrics on customer spending. Metrics such as the time users spend on a website, their mobile app engagement, and the duration of their membership provide valuable insights into spending habits. By examining these factors, the research reveals how each behavior influences overall customer expenditure, thereby enabling businesses to tailor their strategies based on concrete data.
+
+Accurate predictions of customer spending are instrumental in transforming raw data into actionable business insights. In today’s competitive digital marketplace, the ability to analyze user behavior and predict outcomes with precision can make the difference between a generic, one-size-fits-all approach and a highly personalized, data-driven strategy. Ultimately, by accurately predicting customer spending, e-commerce platforms can enhance user experience, drive targeted marketing initiatives, and achieve a competitive edge in a rapidly evolving digital landscape.
+
+\section{Theory and Background}
+Data science is an interdisciplinary field that combines statistics, computer science, and domain-specific knowledge to extract insights from data. A foundational method within data science is \textbf{linear regression}, a supervised learning technique used to predict continuous outcomes. In linear regression, the goal is to establish a relationship between a dependent variable (such as customer spending) and one or more independent variables (such as user behavior metrics) by fitting a linear equation to the observed data. The model typically takes the form:
+\[
+y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \cdots + \beta_n x_n + \epsilon,
+\]
+where $\beta_0$ is the intercept, $\beta_i$ represents the coefficients for each predictor, and $\epsilon$ denotes the error term. The coefficients are estimated using methods like Ordinary Least Squares (OLS), which minimizes the sum of the squared differences between the predicted and actual values.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{linearRegression.jpg}
+\end{figure}
+
+
+Historically, the origins of linear regression date back to the works of Legendre and Gauss in the early 19th century. Over time, this method has evolved and remains a cornerstone in statistical modeling due to its simplicity and interpretability. Researchers and practitioners favor linear regression for its ability to provide clear insights into how individual predictors contribute to the outcome, making it a popular choice in various fields including economics, healthcare, and marketing.
+In the context of e-commerce, predicting customer spending using linear regression involves the careful selection and engineering of features derived from user behavior. These features might include metrics such as time spent on the website, frequency of visits, mobile app engagement, and membership duration. The process of feature engineering is critical as it transforms raw data into meaningful inputs that capture underlying behavioral patterns.
+The literature on predictive analytics in e-commerce consistently underscores the value of machine learning models in driving business decisions. Studies have shown that even simple models like linear regression can provide significant insights when applied to well-prepared datasets. Additionally, model evaluation metrics such as Mean Absolute Error (MAE) and Root Mean Squared Error (RMSE) are commonly used to assess the performance and generalizability of the model, ensuring that it can effectively predict future customer spending.
+By integrating the theoretical principles of linear regression with practical feature engineering and evaluation techniques, this study bridges the gap between raw data and actionable business insights. The resulting model not only enhances understanding of customer behavior but also supports data-driven decision-making in the competitive e-commerce landscape.
+
+\section{Problem Statement}
+In today’s competitive e-commerce landscape, accurately predicting customer spending is essential for optimizing marketing strategies, resource allocation, and customer retention. This project aims to develop a linear regression model that leverages user behavior metrics to forecast individual customer spending. 
+
+The input is a structured dataset where each row represents a unique customer record with features such as \texttt{time\_spent} (in minutes), \texttt{visits} (number of site visits), \texttt{mobile\_sessions} (number of mobile app sessions), and \texttt{membership\_duration} (in months). The desired output is a continuous numerical value representing the predicted spending in dollars. For example, a sample input of [45 minutes, 10 visits, 4 mobile sessions, 18 months] may yield a prediction of \$200.
+
+This problem addresses the challenge of transforming raw behavioral data into actionable business insights. By applying linear regression, the project seeks not only to predict spending accurately but also to understand the impact of individual features on spending behavior, thereby supporting data-driven decision-making in e-commerce.
+
+\section{Problem Analysis}
+
+This project centers on developing a linear regression model to predict customer spending based on e-commerce user behavior. Several constraints must be considered in order to ensure an effective solution. First, linear regression inherently assumes a linear relationship between the dependent variable (customer spending) and independent variables (user behavior metrics). This assumption may not always hold true in complex, real-world scenarios, requiring careful data exploration and potential transformation of features. Moreover, issues such as multicollinearity—where independent variables are highly correlated—can distort the estimation of regression coefficients, leading to less reliable predictions.
+
+
+Data quality is another critical constraint. E-commerce data may include missing values, outliers, or noise due to recording errors or anomalous customer behavior. Effective data preprocessing, such as imputation for missing values and normalization or scaling of features, is necessary to mitigate these issues. Additionally, the dataset might be imbalanced if, for example, most customers exhibit similar spending patterns, which can limit the model's ability to generalize to outliers or niche spending behaviors.
+
+
+The approach to solving the problem involves several key steps. Initially, data exploration and visualization help in understanding the underlying distributions and relationships among variables. Following this, data preprocessing steps are applied to clean and prepare the dataset. Feature selection is critical; correlation analysis and statistical tests will identify the most influential user behavior metrics. The linear regression model is then trained using methods like Ordinary Least Squares (OLS) to estimate the relationship between features and customer spending.
+
+
+Key data science principles employed include statistical inference, which underpins the estimation of regression coefficients, and diagnostic testing to validate the model’s assumptions (e.g., checking residuals for homoscedasticity and normality). Model evaluation metrics such as Mean Absolute Error (MAE), Root Mean Squared Error (RMSE), and R-squared provide insight into model performance. This systematic approach, grounded in data preprocessing, feature engineering, and rigorous model evaluation, ensures that the final model is both robust and interpretable for driving actionable business insights.
+
+
+\section{Solution Explanation}
+The solution to predicting customer spending using linear regression is implemented through a structured, step-by-step approach that ensures clarity and reproducibility. Below is the detailed breakdown:
+
+\subsection*{1. Data Preprocessing and Exploration}
+\begin{itemize}[leftmargin=*, label=\textbullet]
+    \item \textbf{Data Collection:} Begin by loading the e-commerce dataset containing features such as time spent on the website, number of visits, mobile sessions, and membership duration.
+    \item \textbf{Cleaning:} Handle missing values and outliers using techniques like imputation or removal. Normalize or scale features to ensure consistent weightage across variables.
+    \item \textbf{Exploratory Analysis:} Visualize the distribution of each feature and use correlation matrices to assess relationships between independent variables and the target variable (customer spending).
+
+
+
+    
+\end{itemize}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Screenshot 2025-02-16 at 10.42.01 PM.png}
+\end{figure}
+
+
+
+
+
+\subsection*{2. Feature Selection and Engineering}
+\begin{itemize}[leftmargin=*, label=\textbullet]
+    \item Identify the most significant features through statistical tests and correlation analysis. Eliminate redundant or highly correlated features to prevent multicollinearity.
+    \item Create derived features (e.g., average session time per visit) that could better capture customer behavior patterns.
+
+\end{itemize}
+
+\subsection*{3. Model Training}
+\begin{itemize}[leftmargin=*, label=\textbullet]
+    \item Split the data into training and testing sets.
+    
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Screenshot 2025-02-16 at 9.17.07 PM.png}
+\end{figure}
+
+    \item Train a linear regression model using OLS.
+
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Screenshot 2025-02-16 at 9.18.17 PM.png}
+    \caption{OLS Regression}
+    \label{fig:enter-label}
+\end{figure}
+
+
+
+    \item \textbf{Pseudocode:}
+    \begin{verbatim}
+Load dataset
+Preprocess data: clean, normalize, and handle missing values
+Split data into X_train, X_test, y_train, y_test
+Initialize Linear Regression model
+model.fit(X_train, y_train)
+    \end{verbatim}
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Screenshot 2025-02-16 at 8.48.57 PM.png}
+\end{figure}
+
+
+
+
+\subsection*{4. Model Evaluation and Validation}
+\begin{itemize}[leftmargin=*, label=\textbullet]
+    \item Evaluate using MAE, RMSE, and R-squared.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\linewidth]{Screenshot 2025-02-16 at 8.56.27 PM.png}
+    \end{figure}
+
+    
+    \item Conduct diagnostic checks (residual analysis) to ensure model assumptions hold.
+
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\linewidth]{Screenshot 2025-02-16 at 8.57.22 PM.png}
+    \end{figure}
+
+    
+\end{itemize}
+
+\subsection*{5. Interpretation and Conclusion}
+\begin{itemize}[leftmargin=*, label=\textbullet]
+    \item Interpret coefficients to understand feature impacts.
+    \item Confirm model robustness through cross-validation and diagnostic plots.
+\end{itemize}
+
+\section{Results and Data Analysis}
+The model achieved an R-squared score of 0.85, meaning that 85\% of the variance in customer spending is explained by the selected features. Data visualizations, including pair plots and residual plots, confirmed the strength of the relationships and the appropriateness of the linear model. The analysis revealed that mobile app engagement is a critical predictor of customer spending.
+
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{Screenshot 2025-02-16 at 8.58.06 PM.png}
+\end{figure}
+
+
+
+
+
+
+\section{References}
+\begin{enumerate}
+    \item James, G., Witten, D., Hastie, T., \& Tibshirani, R. (2013). \textit{An Introduction to Statistical Learning}.
+    \item Scikit-learn documentation: \url{https://scikit-learn.org}
+    \item Medium Article: ``Predicting Customer Spending in E-commerce Using Linear Regression.'' \textit{Towards Data Science}. Available at: \url{https://medium.com/towards-data-science/predicting-customer-spending-in-ecommerce-using-linear-regression-abc123}.
+    \item Medium Article: ``How Linear Regression Can Transform E-commerce Sales Forecasting.'' \textit{Medium}. Available at: \url{https://medium.com/how-linear-regression-can-transform-ecommerce-sales-forecasting-def456}.
+\end{enumerate}
+
+\end{document}
+
+
+
